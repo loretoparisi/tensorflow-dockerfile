@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         unzip
 
 RUN [ ${ARCH} = ppc64le ] || (apt-get update && \
-        apt-get install nvinfer-runtime-trt-repo-ubuntu1604-5.0.2-ga-cuda${CUDA} \
+        apt-get install nvinfer-runtime-trt-repo-ubuntu1804-5.0.2-ga-cuda${CUDA} \
         && apt-get update \
         && apt-get install -y --no-install-recommends libnvinfer5=5.0.2-1+cuda${CUDA} \
         && apt-get clean \
@@ -63,9 +63,10 @@ RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
 #   tf-nightly-gpu
 # Set --build-arg TF_PACKAGE_VERSION=1.11.0rc0 to install a specific version.
 # Installs the latest version by default.
-ARG TF_PACKAGE=tensorflow
-ARG TF_PACKAGE_VERSION=tensorflow-gpu
+ARG TF_PACKAGE=tensorflow-gpu
+ARG TF_PACKAGE_VERSION=1.13.1
 RUN ${PIP} install ${TF_PACKAGE}${TF_PACKAGE_VERSION:+==${TF_PACKAGE_VERSION}}
 
-COPY bashrc /etc/bash.bashrc
-RUN chmod a+rwx /etc/bash.bashrc
+#COPY bashrc /etc/bash.bashrc
+#RUN chmod a+rwx /etc/bash.bashrc
+CMD ["bash"]
